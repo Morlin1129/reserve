@@ -10,7 +10,7 @@ var reserves;
 app.use(express.static('views'));
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
 
 var corser = require("corser");
 app.use(corser.create());
