@@ -14,8 +14,10 @@ app.listen(process.env.PORT || 3000)
 
 var corser = require("corser");
 app.use(corser.create());
-
-mongodb.MongoClient.connect("mongodb://localhost:27017/test", function(err, database) {
+eroku addons:create mongolab:sandbox
+mongodb.MongoClient.connect("mongodb://heroku_cmz417h6:cb85ed5qou8nqrfita4pvrivgj@ds133281.mlab.com:33281/heroku_cmz417h6
+", function(err, database) {
+// mongodb.MongoClient.connect("mongodb://localhost:27017/test", function(err, database) {
   users = database.collection("users");
   reserves = database.collection("reserves");
 });
