@@ -1,0 +1,11 @@
+
+
+#register .day button {
+  font-size: 2em;
+  padding: 2em auto;
+}
+
+#register .day button .icon {
+  font-size: 4em;
+  /*line-height: 3em;*/
+}
