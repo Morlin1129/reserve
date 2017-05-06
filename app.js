@@ -59,6 +59,15 @@ app.get("/api/reserves/users/:_id", function(req, res) {
   });
 });
 
+//共通の日付移行を取得
+app.get("/api/reserves", function(req, res) {
+  var today  = parseInt(new Date().toFormat('YYYYMMDD'), 10);
+  console.log(today);
+    reserves.find({date:{$gte:today}}).toArray(function(err, items) {
+    res.send(items);
+  });
+});
+
 // 追加・更新
 app.post("/api/reserves/users", function(req, res) {
   console.log('alerting');

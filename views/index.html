@@ -31,6 +31,8 @@
         templateUrl: 'edit.html', controller: 'EditCtrl'
       }).when('/reserves/users/:_id', {
         templateUrl: 'reserve/reserves.html', controller: 'ReserveCtrl'
+      }).when('/reserves', {
+        templateUrl: 'reserve/list.html', controller: 'ReserveListCtrl'
       }).otherwise({
         redirectTo: '/users'
       });
@@ -40,6 +42,9 @@
       return $resource('/api/users/:_id');
     });
     app.factory('Reserve', function($resource) {
+      return $resource('/api/reserves');
+    });
+    app.factory('UserReserve', function($resource) {
       return $resource('/api/reserves/users/:_id');
     });
 
@@ -62,12 +67,48 @@
         });
       };
     });
+    app.controller('ReserveListCtrl', function($scope, $routeParams, $location, $filter, $q, User, Reserve) {
 
-    app.controller('ReserveCtrl', function($scope, $routeParams, $location, $filter, $q, User, Reserve) {
+      $q.all([User.query().$promise, Reserve.query().$promise]).then(function(result) {
+        $scope.users = result[0];
+        $scope.reserves = result[1];
+        $scope.dates = [];
+        var today = new Date();
+
+        angular.forEach($scope.users, function(user, key) {
+          var id = user._id;
+          user.reserves = [];
+          var day = angular.copy(today);
+          for(var i = 0 ; i < 5; i++) {
+            console.log('date: ' + day);
+            var dateString = parseInt($filter('date')(day,'yyyyMMdd',today.getTimezoneOffset()), 10);
+            console.log('dateString:' + dateString );
+            var reserve = undefined;
+            angular.forEach($scope.reserves, function(r, j) {
+              if(r.date == dateString  && r.owner == id) {
+                console.log('r.date:' + r.date );
+                reserve = r;
+              }
+            })
+            if(!reserve) {
+              reserve = {
+                date : dateString,
+                owner: id
+              };
+            }
+            user.reserves.push(angular.copy(reserve));
+            day.setDate(day.getDate() + 1);
+
+          }
+        })
+
+      });
+    });
+    app.controller('ReserveCtrl', function($scope, $routeParams, $location, $filter, $q, User, UserReserve) {
       if ($routeParams._id != 'new') {
         $scope.user = User.get({_id: $routeParams._id});
       }
-      $q.all([Reserve.query({_id: $routeParams._id}).$promise]).then(function(result) {
+      $q.all([UserReserve.query({_id: $routeParams._id}).$promise]).then(function(result) {
         $scope.reserves = result[0];
         console.log('reserves:' + $scope.reserves);
         $scope.dates = [];
@@ -98,7 +139,7 @@
 
       $scope.update = function(date, status) {
         date.status = status;
-        Reserve.save({_id: $routeParams._id, reserve: date}, function() {
+        UserReserve.save({_id: $routeParams._id, reserve: date}, function() {
         });
       }
     });

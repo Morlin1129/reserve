@@ -1,0 +1,25 @@
+<h2>空き情報一覧</h2>
+
+<div class="row" ng-repeat="owner in users">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-sm-12 col-md-2">
+        <img class="img" src="http://facility.homemate-navi.com/pubuser1/pubuser_facility_img/2/7/6/00000000000000076672/0000000555/00000000000000076672_0000000555_6.jpg">
+      </div>
+      <div class="col-sm-12 col-md-3">
+        <h3>{{owner.name}}</h3>
+      </div>
+      <div class="col-sm-12 col-md-7">
+        <table class="table table-bordered">
+          <tr>
+            <th ng-repeat="r in owner.reserves | orderBy: 'date'">{{r.date}}</th>
+          </tr>
+          <tr>
+            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;">{{r.status == 2 ? '○':r.status == 1 ? '△': r.status == -1 ? '✕' : '-'}}</th>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

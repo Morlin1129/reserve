@@ -9,3 +9,7 @@
   font-size: 4em;
   /*line-height: 3em;*/
 }
+
+img.img {
+  max-width: 100%;
+}
