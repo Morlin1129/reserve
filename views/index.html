@@ -2,6 +2,7 @@
 <html lang="ja" ng-app="app">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ユーザー管理</title>
 
   <!-- Latest compiled and minified CSS -->
@@ -123,6 +124,7 @@
       });
     });
     app.controller('ReserveCtrl', function($scope, $routeParams, $location, $filter, $q, User, UserReserve) {
+      $scope.moment = moment;
       if ($routeParams._id != 'new') {
         $scope.user = User.get({_id: $routeParams._id});
       }
