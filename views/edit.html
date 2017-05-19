@@ -1,5 +1,54 @@
-氏名 <input ng-model="user.name"><br>
-年齢 <input ng-model="user.age"><br>
-日付 <input type="date" ng-model="user.date"><br>
-<button ng-click="edit()">登録</button>
-<a ng-href="/#/users">戻る</a>
+<div class="row">
+  <form>
+    <div class="form-group">
+      <label>氏名</label>
+      <input class="form-control" type="text" ng-model="user.name">
+    </div>
+    <div class="form-group">
+      <label>郵便番号</label>
+      <input class="form-control" type="text" ng-model="user.zip">
+    </div>
+    <div class="form-group">
+      <label>区</label>
+      <select ng-model="user.address1" class="form-control">
+        <option ng-value="鹿島区">鹿島区</option>
+        <option ng-value="原町区">原町区</option>
+        <option ng-value="小高区">小高区</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>その他住所</label>
+      <input class="form-control" type="text" ng-model="user.address2">
+    </div>
+    <div class="form-group">
+      <label>電話番号</label>
+      <input class="form-control" type="text" ng-model="user.tel">
+    </div>
+    <div class="form-group">
+      <label>HP</label>
+      <input class="form-control" type="text" ng-model="user.homepage">
+    </div>
+    <div class="form-group">
+      <label>画像</label>
+      <input type="file" ng-model="user.image">
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="user.smoke"> 喫煙室
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="user.nonsmoke"> 禁煙室
+      </label>
+    </div>
+    <div class="form-group">
+      <strong>特色</strong><br>
+      <label><input type="checkbox" ng-model="user.tags.wifi" ng-value="無料Wi-fi">無料Wi-fi</label>
+      <label><input type="checkbox" ng-model="user.tags.morning" ng-value="朝食">朝食</label>
+      <label><input type="checkbox" ng-model="user.tags.dinner" ng-value="夕食">夕食</label>
+    </div>
+    <button class="btn btn-primary" ng-click="edit()">登録</button>
+    <a class="btn btn-default" ng-href="/#/users">戻る</a>
+  </form>
+</div>

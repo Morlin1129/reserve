@@ -70,7 +70,7 @@ app.get("/api/reserves", function(req, res) {
 
 // 追加・更新
 app.post("/api/reserves/users", function(req, res) {
-  console.log('alerting');
+  console.log('alerting:' + JSON.stringify(req.body));
   var reserve = req.body.reserve;
   if (reserve._id) reserve._id = mongodb.ObjectID(reserve._id);
   reserves.save(reserve, function() {

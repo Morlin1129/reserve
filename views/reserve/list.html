@@ -1,5 +1,6 @@
-<h2>空き情報一覧</h2>
 
+<h2>空き情報一覧</h2>
+<hr>
 <div class="row" ng-repeat="owner in users">
   <div class="panel panel-default">
     <div class="panel-body">
@@ -8,16 +9,29 @@
       </div>
       <div class="col-sm-12 col-md-3">
         <h3>{{owner.name}}</h3>
+        <ul class="list-unstyled">
+          <li>{{owner.address1}}</li>
+          <li>お問い合わせ：{{owner.tel}}</li>
+          <li>ホームページ：<a href="{{owner.homepage}}" target="_blank" >{{owner.homepage}}</a></li>
+          <li>
+            <span class="label label-default" ng-repeat-start="(k,v) in owner.tags">{{option.tags[k]}}</span><span ng-repeat-end>&nbsp;</span>
+          </li>
+        </ul>
       </div>
       <div class="col-sm-12 col-md-7">
         <table class="table table-bordered">
           <tr>
-            <th ng-repeat="r in owner.reserves | orderBy: 'date'">{{r.date}}</th>
+            <th></th>
+            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" >{{moment(r.date , 'YYYYMMDD').format('M月D日')}}</th>
           </tr>
-          <tr>
-            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;">{{r.status == 2 ? '○':r.status == 1 ? '△': r.status == -1 ? '✕' : '-'}}</th>
+          <tr ng-if="owner.smoke">
+            <th >禁煙室</th>
+            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.smoke == 2,  'warning':r.smoke == 1 , 'danger': r.smoke == -1}">{{r.smoke == 2 ? '○':r.smoke == 1 ? '△': r.smoke == -1 ? '✕' : '-'}}</th>
           </tr>
-
+          <tr ng-if="owner.nonsmoke">
+            <th >喫煙室</th>
+            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.smoke == 2,  'warning':r.smoke == 1 , 'danger': r.smoke == -1}">{{r.nonsmoke == 2 ? '○':r.nonsmoke == 1 ? '△': r.nonsmoke == -1 ? '✕' : '-'}}</th>
+          </tr>
         </table>
       </div>
     </div>
