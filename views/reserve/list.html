@@ -17,16 +17,16 @@
         <option ng-value="小高区">小高区</option>
       </select>
     </div>
-    <!-- <div class="checkbox">
+    <div class="checkbox">
       <label>
-        <input type="checkbox" ng-model="hasToday()"> 今日空きがある
+        <input type="checkbox" ng-model="searchToday""> 今日空きがある
       </label>
-    </div> -->
+    </div>
   </form>
   <hr>
 </div>
 
-<div class="row" ng-repeat="owner in users | filter: search">
+<div class="row" ng-repeat="owner in users | filter: search | filter:hasToday">
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="col-sm-12 col-md-2">

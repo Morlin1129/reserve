@@ -124,6 +124,14 @@
         })
 
       });
+      $scope.hasToday = function(owner) {
+        if(!$scope.searchToday) return true;
+        if(owner.reserves[0].smoke > 0 || owner.reserves[0].nonsmoke > 0) {
+            return true;
+        } else {
+          return false;
+        }
+      }
     });
     app.controller('ReserveCtrl', function($scope, $routeParams, $location, $filter, $q, User, UserReserve) {
       $scope.moment = moment;
