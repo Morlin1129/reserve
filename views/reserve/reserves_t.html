@@ -1,49 +1,49 @@
 
   <h1>{{user.name}}</h1>
+  <hr>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-xs-6">
       <h3>喫煙室</h3>
-    </div>
-    <div class="col-md-6">
-      <h3>喫煙室</h3>
-    </div>
-  </div>
-  <div class="row day" ng-repeat="date in dates" >
-
-    <div class="col-md-6 reserve-day">
-      <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
-      <div class="" role="group" aria-label="...">
-          <div class="btn-circle" role="group">
-            <div class="inner" ng-if="!date.smoke">
-              <button type="button" class="btn btn-default" ng-click="update(date,'smoke', 2)"><span>（未設定）</span></button>
+      <hr>
+      <div  ng-repeat="date in dates" >
+        <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
+        <div class="" role="group" aria-label="...">
+            <div class="btn-circle" role="group">
+              <div class="inner" ng-if="!date.smoke">
+                <button type="button" class="btn btn-default" ng-click="update(date,'smoke', 2)"><span>（未設定）</span></button>
+              </div>
+              <div class="inner" ng-if="date.smoke==2">
+                <button type="button" class="btn btn-success" ng-click="update(date,'smoke', 1)"><span>空きあり</span></button>
+              </div>
+              <div class="inner" ng-if="date.smoke==1">
+                <button type="button" class="btn btn-warning" ng-click="update(date,'smoke', -1)"><span>空き僅か</span></button>
+              </div>
+              <div class="inner" ng-if="date.smoke==-1" >
+                <button type="button" class="btn btn-danger" ng-click="update(date,'smoke', 2)"><span>空きなし</span></button>
+              </div>
             </div>
-            <div class="inner" ng-if="date.smoke==2">
-              <button type="button" class="btn btn-success" ng-click="update(date,'smoke', 1)"><span>空きあり</span></button>
-            </div>
-            <div class="inner" ng-if="date.smoke==1">
-              <button type="button" class="btn btn-warning" ng-click="update(date,'smoke', -1)"><span>空き僅か</span></button>
-            </div>
-            <div class="inner" ng-if="date.smoke==-1" >
-              <button type="button" class="btn btn-danger" ng-click="update(date,'smoke', 2)"><span>空きなし</span></button>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
-      <div class="btn-group btn-group-justified" role="group" aria-label="...">
-        <div class="btn-circle" role="group">
-          <div class="inner" ng-if="!date.nonsmoke">
-            <button type="button" class="btn btn-default" ng-click="update(date,'nonsmoke', 2)"><span>（未設定）</span></button>
-          </div>
-          <div class="inner" ng-if="date.nonsmoke==2">
-            <button type="button" class="btn btn-success" ng-click="update(date,'nonsmoke', 1)"><span>空きあり</span></button>
-          </div>
-          <div class="inner" ng-if="date.nonsmoke==1">
-            <button type="button" class="btn-warning" ng-click="update(date,'nonsmoke', -1)"><span>空き僅か</span></button>
-          </div>
-          <div class="inner" ng-if="date.nonsmoke==-1">
-            <button type="button" class="btn-danger" ng-click="update(date,'nonsmoke', 2)"><span>空きなし</span></button>
+    <div class="col-xs-6">
+      <h3>禁煙室</h3>
+      <hr>
+      <div  ng-repeat="date in dates" >
+        <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-circle" role="group">
+            <div class="inner" ng-if="!date.nonsmoke">
+              <button type="button" class="btn btn-default" ng-click="update(date,'nonsmoke', 2)"><span>（未設定）</span></button>
+            </div>
+            <div class="inner" ng-if="date.nonsmoke==2">
+              <button type="button" class="btn btn-success" ng-click="update(date,'nonsmoke', 1)"><span>空きあり</span></button>
+            </div>
+            <div class="inner" ng-if="date.nonsmoke==1">
+              <button type="button" class="btn-warning" ng-click="update(date,'nonsmoke', -1)"><span>空き僅か</span></button>
+            </div>
+            <div class="inner" ng-if="date.nonsmoke==-1">
+              <button type="button" class="btn-danger" ng-click="update(date,'nonsmoke', 2)"><span>空きなし</span></button>
+            </div>
           </div>
         </div>
       </div>
