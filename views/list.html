@@ -4,6 +4,7 @@
   <tr ng-repeat="user in users">
         <td>
           <a ng-href="#/users/{{user._id}}">編集</a>
+          <a ng-href="#/reserves/t/users/{{user._id}}">予約(タップ)</a>
           <a ng-href="#/reserves/users/{{user._id}}">予約</a>
           <button ng-click="delete(user._id)">削除</button>
         </td>
