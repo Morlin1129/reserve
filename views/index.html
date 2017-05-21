@@ -40,6 +40,8 @@
         templateUrl: 'edit.html', controller: 'EditCtrl'
       }).when('/reserves/users/:_id', {
         templateUrl: 'reserve/reserves.html', controller: 'ReserveCtrl'
+      }).when('/reserves/t/users/:_id', {
+        templateUrl: 'reserve/reserves_t.html', controller: 'ReserveCtrl'
       }).when('/reserves', {
         templateUrl: 'reserve/list.html', controller: 'ReserveListCtrl'
       }).otherwise({

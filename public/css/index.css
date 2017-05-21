@@ -13,3 +13,25 @@
 img.img {
   max-width: 100%;
 }
+
+.btn-circle .inner{
+  position: relative;
+  width: 80%;
+}
+.btn-circle .inner:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.btn-circle .inner button {
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 4em !important;
+}
+.reserve-day {
+  margin-bottom: 4em;
+}
