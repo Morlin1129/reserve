@@ -1,10 +1,32 @@
 
 <h2>南相馬のホテルの直近の空室情報</h2>
-<hr>
-<div class="row">
 
+<div class="row">
+  <hr>
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="exampleInputName2">施設名検索</label>
+      <input type="text" class="form-control" id="exampleInputName2" placeholder="○○旅館" ng-model="search.name">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName2">施設名検索</label>
+      <select ng-model="search.address1" class="form-control">
+        <option value="{{undefined}}" selected>すべて</option>
+        <option ng-value="鹿島区">鹿島区</option>
+        <option ng-value="原町区">原町区</option>
+        <option ng-value="小高区">小高区</option>
+      </select>
+    </div>
+    <!-- <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="hasToday()"> 今日空きがある
+      </label>
+    </div> -->
+  </form>
+  <hr>
 </div>
-<div class="row" ng-repeat="owner in users">
+
+<div class="row" ng-repeat="owner in users | filter: search">
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="col-sm-12 col-md-2">
@@ -27,6 +49,7 @@
             <th></th>
             <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" >{{moment(r.date , 'YYYYMMDD').format('M月D日')}}</th>
           </tr>
+
           <tr ng-if="owner.smoke">
             <th >喫煙室</th>
             <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.smoke == 2,  'warning':r.smoke == 1 , 'danger': r.smoke == -1}">{{r.smoke == 2 ? '○':r.smoke == 1 ? '△': r.smoke == -1 ? '✕' : '-'}}</th>
