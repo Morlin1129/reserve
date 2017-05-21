@@ -33,7 +33,7 @@
           </tr>
           <tr ng-if="owner.nonsmoke">
             <th >喫煙室</th>
-            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.smoke == 2,  'warning':r.smoke == 1 , 'danger': r.smoke == -1}">{{r.nonsmoke == 2 ? '○':r.nonsmoke == 1 ? '△': r.nonsmoke == -1 ? '✕' : '-'}}</th>
+            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.nonsmoke == 2,  'warning':r.nonsmoke == 1 , 'danger': r.nonsmoke == -1}">{{r.nonsmoke == 2 ? '○':r.nonsmoke == 1 ? '△': r.nonsmoke == -1 ? '✕' : '-'}}</th>
           </tr>
         </table>
       </div>
