@@ -32,10 +32,10 @@
     <div class="col-md-6">
       <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
       <div class="btn-group btn-group-justified" role="group" aria-label="...">
-        <div class="inner" ng-if="!date.nonsmoke">
-          <button type="button" class="btn btn-default" ng-click="update(date,'nonsmoke', 2)"><span>（未設定）</span></button>
-        </div>
         <div class="btn-circle" role="group">
+          <div class="inner" ng-if="!date.nonsmoke">
+            <button type="button" class="btn btn-default" ng-click="update(date,'nonsmoke', 2)"><span>（未設定）</span></button>
+          </div>
           <div class="inner" ng-if="date.nonsmoke==2">
             <button type="button" class="btn btn-success" ng-click="update(date,'nonsmoke', 1)"><span>空きあり</span></button>
           </div>
