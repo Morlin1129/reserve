@@ -65,6 +65,7 @@
             <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.nonsmoke == 2,  'warning':r.nonsmoke == 1 , 'danger': r.nonsmoke == -1}">{{r.nonsmoke == 2 ? '○':r.nonsmoke == 1 ? '△': r.nonsmoke == -1 ? '✕' : '-'}}</th>
           </tr>
         </table>
+        <p class="small pull-right">最終更新:{{owner.updated ? moment(owner.updated).format('M月D日') : '(最近の更新なし)'}}</p>
       </div>
     </div>
   </div>

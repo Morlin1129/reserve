@@ -27,7 +27,7 @@
 </head>
 <body id="register">
   <header>
-    <a href="#/reserves">南相馬市の直前宿泊　空室情報サイト</a>
+    <a href="#/reserves">南相馬の空室状況確認サイト</a>
   </header>
   <div class="container">
     <div ng-view></div>
@@ -181,7 +181,11 @@
 
       $scope.update = function(date, room, status) {
         date[room] = status;
+        $scope.user.updated = new Date();
+
         UserReserve.save({_id: $routeParams._id, reserve: date}, function() {
+          User.save($scope.user, function() {
+          });
         });
       }
     });

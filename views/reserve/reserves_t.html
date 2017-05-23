@@ -6,7 +6,9 @@
       <h3>喫煙室</h3>
       <hr>
       <div  ng-repeat="date in dates">
-        <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
+        <hr>
+        <h3>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h3>
+        <hr>
         <div class="" role="group" aria-label="...">
             <div class="btn-circle" role="group">
               <div class="inner" ng-if="!date.smoke">
@@ -29,7 +31,9 @@
       <h3>禁煙室</h3>
       <hr>
       <div  ng-repeat="date in dates" >
-        <h4>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h4>
+        <hr>
+        <h3>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h3>
+        <hr>
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
           <div class="btn-circle" role="group">
             <div class="inner" ng-if="!date.nonsmoke">
