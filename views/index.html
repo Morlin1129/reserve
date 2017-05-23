@@ -27,7 +27,7 @@
 </head>
 <body id="register">
   <header>
-    南相馬市の直前宿泊　空室情報サイト
+    <a href="#/reserves">南相馬市の直前宿泊　空室情報サイト</a>
   </header>
   <div class="container">
     <div ng-view></div>
@@ -191,9 +191,6 @@
       $scope.option = Option;
       // if ($routeParams._id != 'new') {
       $scope.owner = User.get({_id: $routeParams._id});
-
-
-
       $q.all([User.get({_id: $routeParams._id}).$promise, UserReserve.query({_id: $routeParams._id}).$promise]).then(function(result) {
 
         $scope.owner = result[0];
