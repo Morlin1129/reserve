@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>南相馬簡易予約システム</title>
+  <title>{{title}} 南相馬の空室状況確認システム</title>
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -26,18 +26,30 @@
   <script src="/js/angular-moment.min.js"></script>
 </head>
 <body id="register">
+  <header>
+    南相馬市の直前宿泊　空室情報サイト
+  </header>
   <div class="container">
     <div ng-view></div>
   </div>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP360ciy25REf8xLJAWUSVXWJ--ig67tk">
+  </script>
   <script>
 
     var app = angular.module('app', ['ngResource', 'ngRoute', 'angularMoment']);
-
+    app.run(['$rootScope', function($rootScope) {
+        $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+            $rootScope.title = current.$$route.title;
+        });
+    }]);
     app.config(function($routeProvider) {
       $routeProvider.when('/users', {
         templateUrl: 'list.html', controller: 'ListCtrl'
       }).when('/users/:_id', {
         templateUrl: 'edit.html', controller: 'EditCtrl'
+      }).when('/reserves/view/:_id', {
+        templateUrl: 'reserve/view.html', controller: 'ViewCtrl'
       }).when('/reserves/users/:_id', {
         templateUrl: 'reserve/reserves.html', controller: 'ReserveCtrl'
       }).when('/reserves/t/users/:_id', {
@@ -173,6 +185,75 @@
         });
       }
     });
+
+    app.controller('ViewCtrl', function($rootScope, $scope, $routeParams, $location, User, Option, $q, $filter, UserReserve, Reserve) {
+      $scope.moment = moment;
+      $scope.option = Option;
+      // if ($routeParams._id != 'new') {
+      $scope.owner = User.get({_id: $routeParams._id});
+
+
+
+      $q.all([User.get({_id: $routeParams._id}).$promise, UserReserve.query({_id: $routeParams._id}).$promise]).then(function(result) {
+
+        $scope.owner = result[0];
+        $rootScope.title = $scope.owner.name;
+        $scope.reserves = result[1];
+        $scope.dates = [];
+        var today = new Date();
+
+        var id = $scope.owner._id;
+        $scope.owner.reserves = [];
+        var day = angular.copy(today);
+        for(var i = 0 ; i < 5; i++) {
+          console.log('date: ' + day);
+          var dateString = parseInt($filter('date')(day,'yyyyMMdd',today.getTimezoneOffset()), 10);
+          console.log('dateString:' + dateString );
+          var reserve = undefined;
+          angular.forEach($scope.reserves, function(r, j) {
+            if(r.date == dateString  && r.owner == id) {
+              console.log('r.date:' + r.date );
+              reserve = r;
+            }
+          })
+          if(!reserve) {
+            reserve = {
+              date : dateString,
+              owner: id,
+              smoke: 0,
+              nonsmoke: 0
+            };
+          }
+          $scope.owner.reserves.push(angular.copy(reserve));
+          day.setDate(day.getDate() + 1);
+
+        }
+
+        function initMap() {
+          var center = {lat: parseFloat($scope.owner.latitude), lng: parseFloat($scope.owner.longitude)};
+          // var center =  {lat: -34.397, lng: 150.644},
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: center
+          });
+          var marker = new google.maps.Marker({
+            position: center,
+            map: map
+          });
+        }
+        initMap();
+      });
+    });
+
+    app.filter('nl2br', function($sce){
+        return function(msg,is_xhtml) {
+            var is_xhtml = is_xhtml || true;
+            var breakTag = (is_xhtml) ? '<br />' : '<br>';
+            var msg = (msg + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+            return $sce.trustAsHtml(msg);
+        }
+    });
   </script>
+
 </body>
 </html>

@@ -1,64 +1,53 @@
 
-<h2>南相馬のホテルの直近の空室情報</h2>
+<!-- <h2>南相馬のホテルの直近の空室情報</h2> -->
 
-<div class="row">
-  <hr>
-  <form class="form-inline">
-    <div class="form-group">
-      <label for="exampleInputName2">施設名検索</label>
-      <input type="text" class="form-control" id="exampleInputName2" placeholder="○○旅館" ng-model="search.name">
+<div class="row ">
+  <nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+      <form class="navbar-form navbar-left ">
+        <div class="form-group">
+          <label for="exampleInputName2">施設名検索</label>
+          <input type="text" class="form-control" id="exampleInputName2" placeholder="○○旅館" ng-model="search.name">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputName2">区で絞り込み</label>
+          <select ng-model="search.address1" class="form-control">
+            <option value="{{undefined}}" selected>すべて</option>
+            <option ng-value="鹿島区">鹿島区</option>
+            <option ng-value="原町区">原町区</option>
+            <option ng-value="小高区">小高区</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="searchToday"> 今日空きがある
+            </label>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="exampleInputName2">区で絞り込み</label>
-      <select ng-model="search.address1" class="form-control">
-        <option value="{{undefined}}" selected>すべて</option>
-        <option ng-value="鹿島区">鹿島区</option>
-        <option ng-value="原町区">原町区</option>
-        <option ng-value="小高区">小高区</option>
-      </select>
-    </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" ng-model="searchToday""> 今日空きがある
-      </label>
-    </div>
-  </form>
-  <hr>
+  </nav>
 </div>
 
 <div class="row" ng-repeat="owner in users | filter: search | filter:hasToday">
   <div class="panel panel-default">
     <div class="panel-body">
-      <div class="col-sm-12 col-md-2">
+      <!-- <div class="col-sm-12 col-md-2">
         <img class="img" src="http://facility.homemate-navi.com/pubuser1/pubuser_facility_img/2/7/6/00000000000000076672/0000000555/00000000000000076672_0000000555_6.jpg">
-      </div>
-      <div class="col-sm-12 col-md-3">
-        <h3>{{owner.name}}</h3>
+      </div> -->
+      <div class="col-sm-12 col-md-4">
+        <h3><a href="#/reserves/view/{{owner._id}}">{{owner.name}}</a></h3>
         <ul class="list-unstyled">
           <li>{{owner.address1}}</li>
           <li>お問い合わせ：{{owner.tel}}</li>
-          <li>ホームページ：<a href="{{owner.homepage}}" target="_blank" >{{owner.homepage}}</a></li>
+          <!-- <li>ホームページ：<a href="{{owner.homepage}}" target="_blank" >{{owner.homepage}}</a></li> -->
           <li>
             <span class="label label-default" ng-repeat-start="(k,v) in owner.tags">{{option.tags[k]}}</span><span ng-repeat-end>&nbsp;</span>
           </li>
         </ul>
-      </div>
-      <div class="col-sm-12 col-md-7">
-        <table class="table table-bordered">
-          <tr>
-            <th></th>
-            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" >{{moment(r.date , 'YYYYMMDD').format('M月D日')}}</th>
-          </tr>
-
-          <tr ng-if="owner.smoke">
-            <th >喫煙室</th>
-            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.smoke == 2,  'warning':r.smoke == 1 , 'danger': r.smoke == -1}">{{r.smoke == 2 ? '○':r.smoke == 1 ? '△': r.smoke == -1 ? '✕' : '-'}}</th>
-          </tr>
-          <tr ng-if="owner.nonsmoke">
-            <th >禁煙室</th>
-            <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.nonsmoke == 2,  'warning':r.nonsmoke == 1 , 'danger': r.nonsmoke == -1}">{{r.nonsmoke == 2 ? '○':r.nonsmoke == 1 ? '△': r.nonsmoke == -1 ? '✕' : '-'}}</th>
-          </tr>
-        </table>
+        <!-- <a href="" class="btn btn-primary">詳細を見る</a> -->
       </div>
     </div>
   </div>
