@@ -41,7 +41,7 @@
         <h3><a href="#/reserves/view/{{owner._id}}">{{owner.name}}</a></h3>
         <ul class="list-unstyled">
           <li>{{owner.address1}}</li>
-          <li>お問い合わせ：{{owner.tel}}</li>
+          <li>お問い合わせ：<a href="tel:{{owner.tel}}">{{owner.tel}}</a></li>
           <!-- <li>ホームページ：<a href="{{owner.homepage}}" target="_blank" >{{owner.homepage}}</a></li> -->
           <li>
             <span class="label label-default" ng-repeat-start="(k,v) in owner.tags">{{option.tags[k]}}</span><span ng-repeat-end>&nbsp;</span>

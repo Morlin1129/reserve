@@ -36,13 +36,13 @@
           <img class="img" src="http://facility.homemate-navi.com/pubuser1/pubuser_facility_img/2/7/6/00000000000000076672/0000000555/00000000000000076672_0000000555_6.jpg">
         </div>
         <div class="col-sm-5">
-          <p><a class="btn btn-warning btn-lg btn-block" href="callto:{{owner.tel}}" >お問い合わせ<br><strong>TEL:{{owner.tel}}</strong></a></p>
+          <p><a class="btn btn-warning btn-lg btn-block" href="tel:{{owner.tel}}" >お問い合わせ<br><strong>TEL:{{owner.tel}}</strong></a></p>
           <div class="panel panel-default">
             <div class="panel-body">
               <ul class="list-unstyled">
                 <li>〒{{owner.zip}} 福島県南相馬市{{owner.address1}}{{owner.address2}}</li>
                 <li></li>
-                <li>お問い合わせ：{{owner.tel}}</li>
+                <li>お問い合わせ：<a href="tel:{{owner.tel}}">{{owner.tel}}</a></li>
                 <li>チェックイン：{{owner.checkin}}</li>
                 <li>チェックアウト：{{owner.checkout}}</li>
                 <li>ホームページ：<a href="{{owner.homepage}}" target="_blank" >{{owner.homepage}}</a></li>
