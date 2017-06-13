@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 var dateutils = require('date-utils');
+var cookieParser = require('cookie-parser');
+var session = require('express-session'); // 追加
 
 var app = express();
 var users;
@@ -19,6 +21,25 @@ mongodb.MongoClient.connect("mongodb://heroku_cmz417h6:cb85ed5qou8nqrfita4pvrivg
   users = database.collection("users");
   reserves = database.collection("reserves");
 });
+
+// セッションの設定
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 60 * 1000
+  }
+}));
+
+//セッションチェックする
+var sessionCheck = function(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
 
 // 一覧取得
 app.get("/api/users", function(req, res) {
@@ -82,5 +103,16 @@ app.post("/api/reserves/users", function(req, res) {
 app.delete("/api/reserves/:_id", function(req, res) {
   reserves.remove({_id: mongodb.ObjectID(req.params._id)}, function() {
     res.send("delete");
+  });
+});
+
+// ログイン
+app.delete("/login", function(req, res) {
+  var id = req.body.account_id;
+  var pw = rew.body.password;
+  users.findOne({account_id: id}, function(err, item) {
+    if(item.password == pw) {
+
+    }
   });
 });
