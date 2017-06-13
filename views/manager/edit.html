@@ -1,0 +1,101 @@
+<div class="row">
+  <form>
+    <div class="form-group">
+      <label>宿泊施設名称</label>
+      <input class="form-control" type="text" ng-model="user.name">
+    </div>
+    <div class="form-group">
+      <label>ID</label>
+      <input class="form-control" type="text" ng-model="user.account_id" readonly="true">
+    </div>
+    <div class="form-group">
+      <label>郵便番号</label>
+      <input class="form-control" type="text" ng-model="user.zip">
+    </div>
+    <div class="form-group">
+      <label>区</label>
+      <select ng-model="user.address1" class="form-control">
+        <option ng-value="鹿島区">鹿島区</option>
+        <option ng-value="原町区">原町区</option>
+        <option ng-value="小高区">小高区</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>その他住所</label>
+      <input class="form-control" type="text" ng-model="user.address2">
+    </div>
+    <div class="form-group">
+      <label>電話番号</label>
+      <input class="form-control" type="text" ng-model="user.tel">
+    </div>
+    <div class="form-group">
+      <label>チェックイン可能時刻</label>
+      <select class="form-control" ng-model="user.checkin">
+        <option ng-value="11:00">11:00</option>
+        <option ng-value="11:00">12:00</option>
+        <option ng-value="11:00">13:00</option>
+        <option ng-value="11:00">14:00</option>
+        <option ng-value="11:00">15:00</option>
+        <option ng-value="11:00">16:00</option>
+        <option ng-value="11:00">17:00</option>
+        <option ng-value="11:00">18:00</option>
+      </select>
+      <label>チェックアウト</label>
+      <select class="form-control" ng-model="user.checkout">
+        <option ng-value="7:00">7:00</option>
+        <option ng-value="8:00">8:00</option>
+        <option ng-value="9:00">9:00</option>
+        <option ng-value="10:00">10:00</option>
+        <option ng-value="11:00">11:00</option>
+        <option ng-value="12:00">12:00</option>
+        <option ng-value="13:00">13:00</option>
+        <option ng-value="14:00">14:00</option>
+      </select>
+    </div>
+    <div class="form-group">
+
+    </div>
+    <div class="form-group">
+      <label>HP</label>
+      <input class="form-control" type="text" ng-model="user.homepage">
+    </div>
+    <div class="form-group">
+      <label>Google Map座標(latitude)</label>
+      <input class="form-control" type="text" ng-model="user.latitude">
+    </div>
+    <div class="form-group">
+      <label>Google Map座標(longitude)</label>
+      <input class="form-control" type="text" ng-model="user.longitude">
+    </div>
+    <div class="form-group">
+      <label>画像</label>
+      <!-- <input type="file" ng-model="user.image"> -->
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="user.smoke"> 喫煙室
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="user.nonsmoke"> 禁煙室
+      </label>
+    </div>
+    <div class="form-group">
+      <label>ページ見出し（キャッチコピー。詳細画面の文章のＴＯＰに表示）</label>
+      <input class="form-control"  ng-model="user.descriptionHeader">
+    </div>
+    <div class="form-group">
+      <label>説明文</label>
+      <textarea class="form-control"  ng-model="user.description" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+      <strong>特色</strong><br>
+      <label><input type="checkbox" ng-model="user.tags.wifi" ng-value="無料Wi-fi">無料Wi-fi</label>
+      <label><input type="checkbox" ng-model="user.tags.morning" ng-value="朝食">朝食</label>
+      <label><input type="checkbox" ng-model="user.tags.dinner" ng-value="夕食">夕食</label>
+    </div>
+    <button class="btn btn-primary" ng-click="edit()">登録</button>
+    <a class="btn btn-default" ng-href="/#/users">戻る</a>
+  </form>
+</div>

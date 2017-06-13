@@ -7,6 +7,9 @@ common.run(['$rootScope', function($rootScope) {
 common.factory('User', function($resource) {
   return $resource('/api/users/:_id');
 });
+common.factory('LoginUser', function($resource) {
+  return $resource('/api/loginUser');
+});
 common.factory('Reserve', function($resource) {
   return $resource('/api/reserves');
 });
@@ -20,3 +23,12 @@ common.constant('Option', {
       dinner: '夕食',
   }
 })
+
+common.filter('nl2br', function($sce){
+    return function(msg,is_xhtml) {
+        var is_xhtml = is_xhtml || true;
+        var breakTag = (is_xhtml) ? '<br />' : '<br>';
+        var msg = (msg + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+        return $sce.trustAsHtml(msg);
+    }
+});

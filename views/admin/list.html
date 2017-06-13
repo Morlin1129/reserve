@@ -1,0 +1,17 @@
+
+<table border="1" class="table table-bordered">
+  <tr><th>施設名</th><th></th>
+    <!-- <th>年齢</th><th>日付</th> -->
+  </tr>
+  <tr ng-repeat="user in users">
+        <td>{{user.name}}</td>
+        <td>
+          <a class="btn btn-primary" ng-href="#/users/{{user._id}}">編集</a>
+          <!-- <a ng-href="#/reserves/t/users/{{user._id}}">予約(タップ)</a> -->
+          <!-- <a ng-href="#/reserves/users/{{user._id}}">予約</a> -->
+          <button class="btn btn-danger" ng-click="delete(user._id)">削除</button>
+        </td>
+
+  </tr>
+</table>
+<a ng-href="#/users/new" class="btn btn-default">新規</a>
