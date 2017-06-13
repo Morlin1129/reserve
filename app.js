@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
-var dateutils = require('date-utils');
 var cookieParser = require('cookie-parser');
 var session = require('express-session'); // 追加
 
