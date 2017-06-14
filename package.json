@@ -9,6 +9,10 @@
   },
   "author": "",
   "license": "MIT",
+  "engines": {
+    "node": "4.2.6",
+    "npm":  "3.5.2"
+  },
   "dependencies": {
     "authenticate": "^0.1.5",
     "body-parser": "^1.17.2",
