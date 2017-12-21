@@ -7,20 +7,20 @@
       <hr>
       <div  ng-repeat="date in dates">
         <hr>
-        <h3>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h3>
+        <h3>{{moment(date.date, 'YYYYMMDD').format('M月D日(ddd)')}}</h3>
         <hr>
-        <div class="" role="group" aria-label="...">
+        <div class="" role="group">
             <div class="btn-circle" role="group">
-              <div class="inner" ng-if="!date.smoke">
+              <div class="inner" ng-if="!date.reserve.smoke">
                 <button type="button" class="btn btn-default" ng-click="update(date,'smoke', 2)"><span>（未設定）</span></button>
               </div>
-              <div class="inner" ng-if="date.smoke==2">
+              <div class="inner" ng-if="date.reserve.smoke==2">
                 <button type="button" class="btn btn-success" ng-click="update(date,'smoke', 1)"><span>空きあり</span></button>
               </div>
-              <div class="inner" ng-if="date.smoke==1">
+              <div class="inner" ng-if="date.reserve.smoke==1">
                 <button type="button" class="btn btn-warning" ng-click="update(date,'smoke', -1)"><span>空き僅か</span></button>
               </div>
-              <div class="inner" ng-if="date.smoke==-1" >
+              <div class="inner" ng-if="date.reserve.smoke==-1" >
                 <button type="button" class="btn btn-danger" ng-click="update(date,'smoke', 2)"><span>空きなし</span></button>
               </div>
             </div>
@@ -32,24 +32,25 @@
       <hr>
       <div  ng-repeat="date in dates" >
         <hr>
-        <h3>{{moment(date.date, 'YYYYMMDD').format('M月D日')}}</h3>
+        <h3>{{moment(date.date, 'YYYYMMDD').format('M月D日(ddd)')}}</h3>
         <hr>
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
           <div class="btn-circle" role="group">
-            <div class="inner" ng-if="!date.nonsmoke">
+            <div class="inner" ng-if="!date.reserve.nonsmoke">
               <button type="button" class="btn btn-default" ng-click="update(date,'nonsmoke', 2)"><span>（未設定）</span></button>
             </div>
-            <div class="inner" ng-if="date.nonsmoke==2">
+            <div class="inner" ng-if="date.reserve.nonsmoke==2">
               <button type="button" class="btn btn-success" ng-click="update(date,'nonsmoke', 1)"><span>空きあり</span></button>
             </div>
-            <div class="inner" ng-if="date.nonsmoke==1">
+            <div class="inner" ng-if="date.reserve.nonsmoke==1">
               <button type="button" class="btn-warning" ng-click="update(date,'nonsmoke', -1)"><span>空き僅か</span></button>
             </div>
-            <div class="inner" ng-if="date.nonsmoke==-1">
+            <div class="inner" ng-if="date.reserve.nonsmoke==-1">
               <button type="button" class="btn-danger" ng-click="update(date,'nonsmoke', 2)"><span>空きなし</span></button>
             </div>
           </div>
         </div>
       </div>
+      <div infinite-scroll="loadNewDates()"></div>
     </div>
   </div>

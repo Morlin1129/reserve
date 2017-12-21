@@ -106,7 +106,6 @@ app.delete("/api/users/:_id", function(req, res) {
 //共通の日付移行を取得
 app.get("/api/reserves/users/:_id", function(req, res) {
   var today  = parseInt(new Date().toFormat('YYYYMMDD'), 10);
-  console.log(today);
     reserves.find({owner: req.params._id, date:{$gte:today}}).toArray(function(err, items) {
     res.send(items);
   });
