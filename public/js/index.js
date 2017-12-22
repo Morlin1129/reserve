@@ -1,4 +1,4 @@
-var app = angular.module('app', ['common','ngResource', 'ngRoute', 'angularMoment']);
+var app = angular.module('app', ['common','ngResource', 'ngRoute', 'angularMoment','ui.bootstrap']);
 app.config(function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: '/reserve/list.html', controller: 'ReserveListCtrl'
@@ -9,26 +9,85 @@ app.config(function($routeProvider) {
   }).otherwise({
     redirectTo: '/'
   });
+
 });
 app.controller('ReserveListCtrl', function($scope, $routeParams, $location, $filter, $q, User, Reserve, Option) {
   $scope.moment = moment;
   $scope.option = Option;
+
+  $scope.dateOptions = {
+      "autoApply": true,
+      "autoUpdateInput": false,
+      "formatDayHeader": 'EEE',
+      "startingDay" : 0,
+      "minDate" : new Date(),
+      "maxDate" : moment().add(180, 'days').toDate(),
+      // "locale": {
+      //     "format": "YYYY年MM月DD日",
+      //     "separator": " - ",
+      //     "applyLabel": "Apply",
+      //     "cancelLabel": "Cancel",
+      //     "clearLabel" :'',
+      //     "fromLabel": "出発",
+      //     "toLabel": "帰国",
+      //     "customRangeLabel": "Custom",
+      //     "weekLabel": "W",
+      //     "daysOfWeek": [
+      //         "日",
+      //         "月",
+      //         "火",
+      //         "水",
+      //         "木",
+      //         "金",
+      //         "土"
+      //     ],
+      //     "monthNames": [
+      //         "1月",
+      //         "2月",
+      //         "3月",
+      //         "4月",
+      //         "5月",
+      //         "6月",
+      //         "7月",
+      //         "8月",
+      //         "9月",
+      //         "10月",
+      //         "11月",
+      //         "12月"
+      //     ],
+      //     "firstDay": 0
+      // }
+  }
+  $scope.popup2 = {
+    opened: false
+  };
+
+    $scope.open2 = function() {
+      $scope.popup2.opened = true;
+    };
+
   $q.all([User.query().$promise, Reserve.query().$promise]).then(function(result) {
     $scope.users = result[0];
     $scope.reserves = result[1];
     $scope.dates = [];
     var today = new Date();
 
-    angular.forEach($scope.users, function(user, key) {
+    buildReserveList(today, $scope.users, $scope.reserves);
+
+  });
+
+  function buildReserveList(targetDay, users, reserves ) {
+    var dates = [];
+    angular.forEach(users, function(user, key) {
       var id = user._id;
       user.reserves = [];
-      var day = angular.copy(today);
+      var day = angular.copy(targetDay);
       for(var i = 0 ; i < 5; i++) {
         console.log('date: ' + day);
-        var dateString = parseInt($filter('date')(day,'yyyyMMdd',today.getTimezoneOffset()), 10);
+        var dateString = parseInt($filter('date')(day,'yyyyMMdd',targetDay.getTimezoneOffset()), 10);
         console.log('dateString:' + dateString );
         var reserve = undefined;
-        angular.forEach($scope.reserves, function(r, j) {
+        angular.forEach(reserves, function(r, j) {
           if(r.date == dateString  && r.owner == id) {
             console.log('r.date:' + r.date );
             reserve = r;
@@ -47,16 +106,38 @@ app.controller('ReserveListCtrl', function($scope, $routeParams, $location, $fil
 
       }
     })
+  }
+  $scope.filterDate = undefined;
+  $scope.$watch('filterDate', function(n, o) {
+    $scope.filterDate = n;
+    if(moment(n).format('YYYYMMDD') != moment().format('YYYYMMDD')) {
+      $scope.searchToday = false;
+    }
+    buildReserveList(moment(n).toDate(), $scope.users, $scope.reserves);
+  });
+  $scope.$watch('searchToday', function(n, o) {
+    if(n) {
+      $scope.filterDate = new Date();
+    } else {
+      if(moment($scope.filterDate).format('YYYYMMDD') == moment().format('YYYYMMDD')) {
+        $scope.filterDate = undefined;
+      }
 
+    }
   });
   $scope.hasToday = function(owner) {
-    if(!$scope.searchToday) return true;
-    if(owner.reserves[0].smoke > 0 || owner.reserves[0].nonsmoke > 0) {
+    if(!$scope.filterDate) return true;
+    var filtered = owner.reserves.filter(function(r) {
+      if(r.date == moment($scope.filterDate).format('YYYYMMDD') && (r.smoke > 0 || r.nonsmoke > 0)){
         return true;
+      }
+    });
+    if(filtered && filtered.length > 0) {
+      return true;
     } else {
       return false;
     }
-  }
+  };
 });
 app.controller('ViewCtrl', function($rootScope, $scope, $routeParams, $location, User, Option, $q, $filter, UserReserve, Reserve) {
   $scope.moment = moment;

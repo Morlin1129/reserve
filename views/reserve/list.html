@@ -4,7 +4,7 @@
 <div class="row ">
   <nav class="navbar navbar-default navbar-inverse">
     <div class="container-fluid">
-      <form class="navbar-form navbar-left ">
+      <form class="navbar-form navbar-left form-inline">
         <div class="form-group">
           <label for="exampleInputName2">施設名検索</label>
           <input type="text" class="form-control" id="exampleInputName2" placeholder="○○旅館" ng-model="search.name">
@@ -18,7 +18,15 @@
             <option ng-value="小高区">小高区</option>
           </select>
         </div>
-
+        <div class="form-group">
+          <label for="exampleInputName2">日付で絞り込み</label>
+          <div class="input-group">
+            <input type="text" ng-model="filterDate" class="form-control" ng-click="open2()" uib-datepicker-popup is-open="popup2.opened" datepicker-options="dateOptions" show-button-bar="false" close-text="閉じる" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
+        </div>
         <div class="form-group">
           <div class="checkbox">
             <label>
@@ -26,6 +34,7 @@
             </label>
           </div>
         </div>
+
       </form>
     </div>
   </nav>
@@ -65,8 +74,11 @@
             <th ng-repeat="r in owner.reserves | orderBy: 'date'" style="text-align: center;" ng-class="{'info' : r.nonsmoke == 2,  'warning':r.nonsmoke == 1 , 'danger': r.nonsmoke == -1}">{{r.nonsmoke == 2 ? '○':r.nonsmoke == 1 ? '△': r.nonsmoke == -1 ? '✕' : '-'}}</th>
           </tr>
         </table>
-        <p class="small pull-right">最終更新:{{owner.updated ? moment(owner.updated).format('M月D日') : '(最近の更新なし)'}}</p>
+        <p class="small pull-right">最終更新:{{owner.updated ? moment(owner.updated).format('M月D日 H:m') : '(最近の更新なし)'}}</p>
       </div>
     </div>
   </div>
+</div>
+<div ng-hide="(owner in users | filter: search | filter:hasToday).length > 0">
+  <p>該当する予約施設が見つかりませんでした。</p>
 </div>
