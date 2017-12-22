@@ -19,7 +19,7 @@ common.factory('UserReserve', function($resource) {
 common.constant('Option', {
   tags : {
       wifi: '無料W-fi',
-      moring:'朝食',
+      morning:'朝食',
       dinner: '夕食',
   }
 })

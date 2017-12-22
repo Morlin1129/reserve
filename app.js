@@ -28,7 +28,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 30 * 60 * 1000
+    maxAge: 60 * 60 * 24 * 30
   }
 }));
 
@@ -149,5 +149,14 @@ app.get("/api/login", function(req, res) {
       req.session.user = item;
       res.send(item);
     }
+  });
+});
+
+// ログイン（ID指定で省略）
+app.get("/api/login/:_id", function(req, res) {
+  users.findOne({account_id: req.params._id}, function(err, item) {
+    delete item.password;
+    req.session.user = item;
+    res.send(item);
   });
 });

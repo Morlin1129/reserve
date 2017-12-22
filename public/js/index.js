@@ -6,6 +6,8 @@ app.config(function($routeProvider) {
     templateUrl: '/reserve/view.html', controller: 'ViewCtrl'
   }).when('/login', {
     templateUrl: '/login.html', controller: 'LoginCtrl'
+  }).when('/login/:_id', {
+    templateUrl: '/login.html', controller: 'LoginCtrl'
   }).otherwise({
     redirectTo: '/'
   });
@@ -196,7 +198,25 @@ app.controller('ViewCtrl', function($rootScope, $scope, $routeParams, $location,
 });
 
 
-app.controller('LoginCtrl', function($scope, $http, $window) {
+app.controller('LoginCtrl', function($scope, $http, $window, $routeParams) {
+  try {
+    var id = $routeParams._id;
+    if(id) {
+      $http({
+        method: 'GET',
+        url : '/api/login/' + id,
+      }).then(function(response) {
+        if(response.data.account_id) {
+          $window.location.href = '/manager';
+        }
+      })
+    }
+  } catch(e) {
+
+  }
+
+
+
   $scope.login = function() {
     $http({
       method: 'GET',
