@@ -12,11 +12,11 @@ var reserves;
 app.use(express.static('views'));
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.EXPRESS_PORT || 3000)
 
 var corser = require("corser");
 app.use(corser.create());
-mongodb.MongoClient.connect("mongodb://heroku_cmz417h6:cb85ed5qou8nqrfita4pvrivgj@ds133281.mlab.com:33281/heroku_cmz417h6", function(err, database) {
+mongodb.MongoClient.connect(process.env.DB_URL, function(err, database) {
 // mongodb.MongoClient.connect("mongodb://localhost:27017/test", function(err, database) {
   users = database.collection("users");
   reserves = database.collection("reserves");
@@ -144,7 +144,7 @@ app.get("/api/login", function(req, res) {
   var id = req.query.account_id;
   var pw = req.query.password;
   users.findOne({account_id: id}, function(err, item) {
-    if(item.password == pw) {
+      if(item.password == pw) {
       delete item.password;
       req.session.user = item;
       res.send(item);
