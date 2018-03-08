@@ -4,6 +4,7 @@ var mongodb = require('mongodb');
 var dateutils = require('date-utils');
 // var cookieParser = require('cookie-parser');
 var session = require('express-session'); // 追加
+require('dotenv').config();
 
 var app = express();
 var users;
