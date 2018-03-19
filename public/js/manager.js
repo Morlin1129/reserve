@@ -29,9 +29,9 @@ app.controller('EditCtrl', function($scope, $routeParams, $location, User, $http
       $location.url('/');
     });
   };
-  $scope.upload = function() {
+  $scope.upload = function(this) {
     var formData = new FormData();
-     formData.append( 'file', $scope.user.image.files[0] );
+     formData.append( 'file', this.files[0] );
      $http({
        method: 'POST',
        url: '/api/upload',
