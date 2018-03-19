@@ -21,7 +21,7 @@ app.controller('ListCtrl', function($scope, $route, User) {
   };
 });
 
-app.controller('EditCtrl', function($scope, $routeParams, $location, User) {
+app.controller('EditCtrl', function($scope, $routeParams, $location, $http, User) {
       if ($routeParams._id != 'new') {
         $scope.user = User.get({_id: $routeParams._id});
       }
