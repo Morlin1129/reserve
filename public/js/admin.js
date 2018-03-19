@@ -30,4 +30,15 @@ app.controller('EditCtrl', function($scope, $routeParams, $location, User) {
           $location.url('/');
         });
       };
+      $scope.upload = function() {
+        var formData = new FormData();
+         formData.append( 'file', $scope.user.image.files[0] );
+         $http({
+           method: 'POST',
+           url: '/api/upload',
+           data: formData
+         }).done(function(response) {
+           $scope.user.imageUrl = response;
+         })
+      };
     });
