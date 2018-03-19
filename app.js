@@ -19,6 +19,7 @@ app.use(bodyParser.json({limit:'5mb'}));
 app.listen(process.env.EXPRESS_PORT || 3000);
 var corser = require("corser");
 app.use(corser.create());
+app.use(fileUpload());
 mongodb.MongoClient.connect(process.env.DB_URL, function(err, database) {
 // mongodb.MongoClient.connect("mongodb://localhost:27017/test", function(err, database) {
   users = database.collection("users");
