@@ -32,13 +32,10 @@ app.controller('EditCtrl', function($scope, $routeParams, $location, User, $http
   $scope.upload = function(file) {
     var formData = new FormData();
      formData.append( 'file', file.files[0] );
-     $http({
-       method: 'POST',
-       url: '/api/upload',
-       data: formData,
+     $http.post('/api/upload',formData, {
        transformRequest: null,
        headers: {'Content-type':undefined}
-     }).then(function(response) {
+     }).success(function(response) {
        $scope.user.imageUrl = response;
      })
   };
