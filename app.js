@@ -99,10 +99,11 @@ app.post("/api/users", function(req, res) {
   });
 });
 app.post("/api/upload", function(req, res) {
-  if (!req.file)
+  if (!req.files.file)
     return res.status(400).send('No files were uploaded.');
-  var file = req.file;
-  var filename = new Date() + file.name;
+  var file = req.files.file;
+  var filename = new Date().getTime().toString(16) + file.name;
+  console.log(filename);
   var fileUrl = '/var/www/reserve/public/images/' + filename;
   file.mv(fileUrl, function(err) {
     if (err) {
