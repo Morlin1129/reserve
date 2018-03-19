@@ -15,12 +15,8 @@ var reserves;
 
 app.use(express.static('views'));
 app.use(express.static('public'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'5mb'}));
 app.listen(process.env.EXPRESS_PORT || 3000);
-app.use(bodyParser({
-  formLimit: '5mb'
-}));
-
 var corser = require("corser");
 app.use(corser.create());
 mongodb.MongoClient.connect(process.env.DB_URL, function(err, database) {
