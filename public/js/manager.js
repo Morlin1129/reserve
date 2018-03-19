@@ -35,7 +35,9 @@ app.controller('EditCtrl', function($scope, $routeParams, $location, User, $http
      $http({
        method: 'POST',
        url: '/api/upload',
-       data: formData
+       data: formData,
+       transformRequest: null,
+       headers: {'Content-type':undefined}
      }).then(function(response) {
        $scope.user.imageUrl = response;
      })
