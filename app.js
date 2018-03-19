@@ -104,7 +104,7 @@ app.post("/api/upload", function(req, res) {
   var file = req.files.file;
   var filename = new Date().getTime().toString(16) + file.name;
   console.log(filename);
-  var fileUrl = '/var/www/reserve/public/images/' + filename;
+  var fileUrl = 'var/www/reserve/public/images/' + filename;
   file.mv(fileUrl, function(err) {
     if (err) {
       return res.status(500).send(err);
