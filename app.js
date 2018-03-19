@@ -16,7 +16,8 @@ var reserves;
 app.use(express.static('views'));
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.listen(process.env.EXPRESS_PORT || 3000)
+app.listen(process.env.EXPRESS_PORT || 3000);
+app.use(bodyParser.urlencoded({ limit:'50mb',extended: true }));
 
 var corser = require("corser");
 app.use(corser.create());
