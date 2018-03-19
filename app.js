@@ -1,5 +1,7 @@
 "use strict";
 var express = require('express');
+const fileUpload = require('express-fileupload');
+
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 var dateutils = require('date-utils');
@@ -94,6 +96,23 @@ app.post("/api/users", function(req, res) {
   if (user._id) user._id = mongodb.ObjectID(user._id);
   users.save(user, function() {
     res.send("insert or update");
+  });
+});
+app.post("/api/upload", function(req, res) {
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+  var file = req.files.file;
+  var filename = new Date() + file.name;
+  var fileUrl = '/var/www/reserve/public/images/' + filename;
+  file.mv(fileUrl, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    // user.fileUrl = fileUrl;
+    // users.save(user, function() {
+    //   res.send("insert or update");
+    // });
+    res.send(filename);
   });
 });
 

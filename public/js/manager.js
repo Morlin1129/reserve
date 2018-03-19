@@ -29,6 +29,17 @@ app.controller('EditCtrl', function($scope, $routeParams, $location, User, $http
       $location.url('/');
     });
   };
+  $scope.upload = function() {
+    var formData = new FormData();
+     formData.append( 'file', $scope.user.image.files[0] );
+     $http({
+       method: 'POST',
+       url: '/api/upload',
+       data: formData
+     }).done(function(response) {
+       $scope.user.imageUrl = response;
+     })
+  };
 });
 app.controller('ReserveCtrl', function($scope, $routeParams, $location, $filter, $q, User, UserReserve, $http, $window) {
   $scope.moment = moment;

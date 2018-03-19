@@ -13,9 +13,11 @@
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "corser": "^2.0.1",
+    "crypto": "^1.0.1",
     "date-utils": "^1.2.21",
     "dotenv": "^5.0.1",
     "express": "^4.15.2",
+    "express-fileupload": "^0.4.0",
     "express-session": "^1.15.3",
     "mongodb": "^2.2.28"
   }
