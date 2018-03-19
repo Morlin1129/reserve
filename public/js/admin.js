@@ -3,7 +3,7 @@ var app = angular.module('app', ['common','ngResource', 'ngRoute', 'angularMomen
 app.config(function($routeProvider) {
   $routeProvider.when('/list', {
     templateUrl: '/admin/list.html', controller: 'ListCtrl'
-  }).when('/users/new', {
+  }).when('/users/:_id', {
     templateUrl: '/admin/edit.html', controller: 'EditCtrl'
   }).otherwise({
     redirectTo: '/list'
